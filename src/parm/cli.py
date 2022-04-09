@@ -20,7 +20,7 @@ class SubParser:
     help: str = ''
 
 
-class SubParsers():
+class SubParsers:
     ROLE = SubParser(
         name='role',
         arguments=(
