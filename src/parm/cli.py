@@ -46,15 +46,17 @@ class Parser:
         self._specific_args_group = self._parser.add_argument_group('specific arguments')
 
         self._standard_args_group.add_argument(
-            '-s', '--host', required=True, help='vSphere service address to connect to')
+            '-s', '--host', help='vSphere service address to connect to')
         self._standard_args_group.add_argument(
             '-o', '--port', type=int, default=443, help='Port to connect to host')
         self._standard_args_group.add_argument(
             '-u', '--user', required=False, help='User name to use when connecting to host')
         self._standard_args_group.add_argument(
-            '-p', '--password', required=False, help='Password to use when connectiong to host')
+            '-p', '--password', required=False, help='Password to use when connecting to host')
         self._standard_args_group.add_argument(
-            '--nossl', required=False, action='store_true', help='Disable ssl host certificate verification')
+            '-f', '--config', default='.cred.yml', help='Config to use when connecting to host')
+        self._standard_args_group.add_argument(
+            '--nossl', default=False, action='store_true', help='Disable ssl host certificate verification')
 
     def _add_subparser(self, subparser: SubParser):
         _parser = self._subparsers.add_parser(name=subparser.name, help=subparser.help)
