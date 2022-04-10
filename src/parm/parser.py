@@ -23,17 +23,16 @@ class SubParser:
 class SubParsers:
     ROLE = SubParser(
         name='role',
-        arguments=(
-            Argument(
-                name_or_flags=('-t', '--type',),
-                options={'required': True}
-            ),
-        ),
         help='see `role -h`'
     )
     MO = SubParser(
         name='mo',
-        arguments=None,
+        arguments=(
+            Argument(
+                name_or_flags=('-n', '--name'),
+                options={'required': True}
+            ),
+        ),
         help='see `mo -h`'
     )
 
@@ -60,6 +59,7 @@ class Parser:
 
     def _add_subparser(self, subparser: SubParser):
         _parser = self._subparsers.add_parser(name=subparser.name, help=subparser.help)
+        _parser.set_defaults(subcmd=subparser.name)
         if isinstance(subparser.arguments, tuple):
             for argument in subparser.arguments:
                 _parser.add_argument(*argument.name_or_flags, **argument.options)

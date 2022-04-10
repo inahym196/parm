@@ -6,6 +6,21 @@ import yaml
 from pyvim.connect import Disconnect, SmartConnect
 
 
+def get_roleId_by_name(content: Any, name: str):
+    authmgr = content.authorizationManager
+    for role in authmgr.roleList:
+        if role.name == name:
+            return role.roleId
+
+
+def get_mo_by_name(content: Any, name: str) -> Any:
+    containerview = content.viewManager.CreateContainerView(
+        container=content.rootFolder, type=[], recursive=True)
+    for child in containerview.view:
+        if child.name == name:
+            return child
+
+
 def _get_connect_info_from_file(config_file: str) -> tuple[str, str, str, bool]:
     host = ''
     user = ''
@@ -41,7 +56,6 @@ def connect(args: Namespace):
     if args.nossl:
         nossl = args.nossl
 
-    print(host, user, password, port, nossl)
     service_instance = SmartConnect(host=host,
                                     user=user,
                                     pwd=password,
