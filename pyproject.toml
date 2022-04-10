@@ -6,16 +6,20 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-isort = "^5.10.1"
-pyvim = "^3.0.2"
-pyvmomi = "^7.0.3"
 PyYAML = "^6.0"
+pyvmomi = "^7.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+mypy = "^0.942"
+flake8 = "^4.0.1"
+autopep8 = "^1.6.0"
+isort = "^5.10.1"
+types-PyYAML = "^6.0.5"
 
 [tool.poetry.scripts]
 export = 'parm.export:main'
+add = 'parm.adder:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
