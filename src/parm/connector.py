@@ -21,22 +21,16 @@ def get_mo_by_name(content: Any, name: str) -> Any:
             return child
 
 
-def _get_connect_info_from_file(config_file: str) -> tuple[str, str, str, bool]:
-    host = ''
-    user = ''
-    password = ''
-    nossl = False
-
-    with open(config_file, 'r', encoding='UTF-8') as f:
+def get_connect_info(configfile: str) -> tuple[str, str, str]:
+    with open(configfile, encoding='utf-8') as f:
         config: dict[str, Any] = yaml.safe_load(f)
         host = config.get('hostname', '')
         user = config.get('username', '')
         password = config.get('password', '')
-        nossl = config.get('nossl', '')
-    return (host, user, password, nossl)
+    return (host, user, password)
 
 
-def connect(args: Namespace):
+def connect(args: Namespace, config: str = '.cred.yml'):
     service_instance: Optional[Any] = None
     host = ''
     user = ''
@@ -44,11 +38,8 @@ def connect(args: Namespace):
     nossl = False
     port = args.port
 
-    if args.config:
-        host, user, password, nossl = _get_connect_info_from_file(args.config)
+    host, user, password = get_connect_info(config)
 
-    if args.host:
-        host = args.host
     if args.user:
         user = args.user
     if args.password:

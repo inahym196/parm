@@ -1,0 +1,9 @@
+vcenter: vcenter01
+entityName: datacenter1
+permissions:
+  - roleName: ReadOnly
+    principal: VSPHERE.LOCAL\user01
+    propagate: True
+  - roleName: NoAccess
+    principal: VSPHERE.LOCAL\group01
+    isgroup: True
